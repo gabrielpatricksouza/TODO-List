@@ -40,6 +40,9 @@ dependencies:
     #Bibliotecas de compartilhamento
   share: ^2.0.4
 
+    #Biblioteca para introdução ao app
+  intro_slider: ^3.0.2
+
     #Bibliotecas para o Firebase
   firebase_core: ^1.4.0
   firebase_auth: ^3.0.1
@@ -55,6 +58,8 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
+  assets:
+    - assets/intro/
 
   # fonts:
   #   - family: Schyler

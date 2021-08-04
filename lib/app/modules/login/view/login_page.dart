@@ -45,6 +45,18 @@ class _LoginPageState extends ModularState<LoginPage, LoginStore> {
               text: "Cadastrar",
               color: Color(0xff7C83FD),
             ),
+            SizedBox(height: 20),
+
+
+            CustomAnimatedButton(
+              onTap:  ()=> Modular.to.pushNamed("/login/intro"),
+              widhtMultiply: 0.3,
+              iconBool: true,
+              icon: Icons.help_outline_outlined,
+              height: 60,
+              text: "Sobre",
+              color: Colors.deepPurple
+            ),
           ],
         ),
       ),

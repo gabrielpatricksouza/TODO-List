@@ -89,7 +89,7 @@ class _CustomAnimatedButtonState extends State<CustomAnimatedButton> with Single
       ),
       child: Center(
         child: widget.iconBool == true
-          ? Icon(widget.icon, color: Colors.white)
+          ? Icon(widget.icon, color: Colors.white, size: 40,)
           : Text(
             widget.text,
             style: TextStyle(
