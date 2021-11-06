@@ -1,16 +1,13 @@
-# todo_list
+# Todo list
 
 A new Flutter project.
 
-## Getting Started
+## Tecnologias
 
-This project is a starting point for a Flutter application.
+O que foi utilizado para criar o app:
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Flutter
+- Dart
+- Modular
+- Mobx
+- Firebase
