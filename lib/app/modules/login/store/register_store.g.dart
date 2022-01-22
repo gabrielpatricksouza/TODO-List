@@ -164,22 +164,22 @@ mixin _$RegisterStore on _RegisterStore, Store {
   }
 
   @override
-  void setsenha1(String text) {
+  void setSenha1(String text) {
     final _$actionInfo = _$_RegisterStoreActionController.startAction(
         name: '_RegisterStore.setsenha1');
     try {
-      return super.setsenha1(text);
+      return super.setSenha1(text);
     } finally {
       _$_RegisterStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void setsenha2(String text) {
+  void setSenha2(String text) {
     final _$actionInfo = _$_RegisterStoreActionController.startAction(
         name: '_RegisterStore.setsenha2');
     try {
-      return super.setsenha2(text);
+      return super.setSenha2(text);
     } finally {
       _$_RegisterStoreActionController.endAction(_$actionInfo);
     }

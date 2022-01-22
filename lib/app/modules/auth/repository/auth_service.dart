@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class AuthSevice{
+class AuthSevice {
   final FirebaseFirestore db = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  bool checkCurrentUser() {
+  bool checarCurrentUser() {
     User? user = _auth.currentUser;
     return user != null ? true : false;
   }

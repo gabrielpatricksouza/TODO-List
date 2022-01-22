@@ -19,44 +19,40 @@ class _LoginPageState extends ModularState<LoginPage, LoginStore> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-                "MEU\nTO-DO",
+              "MEU\nTO-DO",
               style: TextStyle(
-                fontSize: 55,
-                fontWeight: FontWeight.bold,
-                color: Colors.white70
-              ),
+                  fontSize: 55,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white70),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 60,),
-
+            SizedBox(
+              height: 60,
+            ),
             CustomAnimatedButton(
-              onTap:  ()=> Modular.to.pushNamed("/login/singIn"),
+              onTap: () => Modular.to.pushNamed("/login/singIn"),
               widhtMultiply: 1,
               height: 60,
               text: "Entrar",
               color: Color(0XFF338fa0),
             ),
             SizedBox(height: 20),
-
             CustomAnimatedButton(
-              onTap:  ()=> Modular.to.pushNamed("/login/singUp"),
+              onTap: () => Modular.to.pushNamed("/login/singUp"),
               widhtMultiply: 1,
               height: 60,
               text: "Cadastrar",
               color: Color(0xff7C83FD),
             ),
             SizedBox(height: 20),
-
-
             CustomAnimatedButton(
-              onTap:  ()=> Modular.to.pushNamed("/login/intro"),
-              widhtMultiply: 0.3,
-              iconBool: true,
-              icon: Icons.help_outline_outlined,
-              height: 60,
-              text: "Sobre",
-              color: Colors.deepPurple
-            ),
+                onTap: () => Modular.to.pushNamed("/login/intro"),
+                widhtMultiply: 0.3,
+                iconBool: true,
+                icon: Icons.help_outline_outlined,
+                height: 60,
+                text: "Sobre",
+                color: Colors.deepPurple),
           ],
         ),
       ),

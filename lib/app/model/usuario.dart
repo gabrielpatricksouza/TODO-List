@@ -1,16 +1,15 @@
-
 class Usuario {
-
   String idUsuario = "";
   String nome = "";
   String email = "";
   String senha = "";
 
-  Usuario(
-      {this.idUsuario = "",
-      this.nome = "",
-      this.email = "",
-      this.senha = "",});
+  Usuario({
+    this.idUsuario = "",
+    this.nome = "",
+    this.email = "",
+    this.senha = "",
+  });
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
@@ -23,17 +22,17 @@ class Usuario {
 
   factory Usuario.fromMap(Map<dynamic, dynamic> dados) {
     return Usuario(
-      idUsuario: dados['idUsuario']== null ? '' : dados['idUsuario'],
-      nome:      dados['nome']     == null ? '' : dados['nome'],
-      email:     dados['email']    == null ? '' : dados['email'],
+      idUsuario: dados['idUsuario'] == null ? '' : dados['idUsuario'],
+      nome: dados['nome'] == null ? '' : dados['nome'],
+      email: dados['email'] == null ? '' : dados['email'],
     );
   }
 
   factory Usuario.clean() {
     return Usuario(
       idUsuario: '',
-      nome:      '',
-      email:     '',
+      nome: '',
+      email: '',
     );
   }
 }

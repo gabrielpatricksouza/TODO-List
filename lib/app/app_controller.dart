@@ -1,8 +1,8 @@
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:todo_list/app/services/database.dart';
+import 'package:todo_list/app/repository/database.dart';
 
-import 'model/Usuario.dart';
+import 'model/usuario.dart';
 
 part 'app_controller.g.dart';
 
@@ -10,22 +10,21 @@ part 'app_controller.g.dart';
 class AppController = _AppControllerBase with _$AppController;
 
 abstract class _AppControllerBase with Store {
-
-  DataBaseGlobal _acessoBDGlobal = DataBaseGlobal();
+  UsuarioFirebaseGlobal _acessoUsuarioGlobal = UsuarioFirebaseGlobal();
 
   @observable
   Usuario usuario = Usuario();
 
   @action
   recuperarDadosUser() async {
-    bool response = _acessoBDGlobal.checkCurrentUser();
-    if(response){
-      usuario = await _acessoBDGlobal.recuperarDadosUsuario();
+    bool response = _acessoUsuarioGlobal.checkCurrentUser();
+    if (response) {
+      usuario = await _acessoUsuarioGlobal.recuperarDadosUsuario();
     }
   }
 
   @action
-  limparVariaveis(){
+  limparVariaveis() {
     usuario = Usuario.clean();
   }
 }

@@ -4,44 +4,41 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class AppWidget extends StatelessWidget {
-
   final Future<FirebaseApp> _inicializacao = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: _inicializacao,
-        builder: (_, snapshot){
-          if(snapshot.hasError){
+        builder: (_, snapshot) {
+          if (snapshot.hasError) {
             return Center(
-                child: Text("Error: ${snapshot.hasError}",
-                  style: TextStyle(fontSize: 22),
-                  textDirection: TextDirection.ltr,
-                )
-            );
+                child: Text(
+              "Error: ${snapshot.hasError}",
+              style: TextStyle(fontSize: 22),
+              textDirection: TextDirection.ltr,
+            ));
           }
 
-          if(snapshot.connectionState == ConnectionState.done){
+          if (snapshot.connectionState == ConnectionState.done) {
             return MaterialApp(
               localizationsDelegates: [
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
+                DefaultWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate
               ],
               supportedLocales: [
                 const Locale('pt', 'BR'), // portugues
               ],
               title: 'Todo-list',
-              theme:ThemeData(
-                  brightness: Brightness.dark,
-                  primaryColor: Colors.white
-              ),
-
+              theme: ThemeData(
+                  brightness: Brightness.dark, primaryColor: Colors.white),
               debugShowCheckedModeBanner: false,
             ).modular();
           }
 
           return CircularProgressIndicator();
-        }
-    );
+        });
   }
 }

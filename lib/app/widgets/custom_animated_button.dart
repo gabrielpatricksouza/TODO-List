@@ -9,23 +9,21 @@ class CustomAnimatedButton extends StatefulWidget {
   final Color? color;
   final Function? onTap;
 
-
   CustomAnimatedButton(
-      {
-        required this.widhtMultiply,
-        this.height = 60,
-        this.text   = "",
-        this.icon,
-        this.color,
-        this.onTap,
-        this.iconBool
-      });
+      {required this.widhtMultiply,
+      this.height = 60,
+      this.text = "",
+      this.icon,
+      this.color,
+      this.onTap,
+      this.iconBool});
 
   @override
   _CustomAnimatedButtonState createState() => _CustomAnimatedButtonState();
 }
 
-class _CustomAnimatedButtonState extends State<CustomAnimatedButton> with SingleTickerProviderStateMixin {
+class _CustomAnimatedButtonState extends State<CustomAnimatedButton>
+    with SingleTickerProviderStateMixin {
   late double _scale;
   late AnimationController _controller;
 
@@ -38,8 +36,8 @@ class _CustomAnimatedButtonState extends State<CustomAnimatedButton> with Single
       lowerBound: 0.0,
       upperBound: 0.1,
     )..addListener(() {
-      setState(() {});
-    });
+        setState(() {});
+      });
   }
 
   @override
@@ -64,7 +62,7 @@ class _CustomAnimatedButtonState extends State<CustomAnimatedButton> with Single
       child: GestureDetector(
         onTapDown: _onTapDown,
         onTapUp: _onTapUp,
-        onTap: (){
+        onTap: () {
           widget.onTap!();
         },
         child: Transform.scale(
@@ -76,29 +74,29 @@ class _CustomAnimatedButtonState extends State<CustomAnimatedButton> with Single
   }
 
   Widget get _animatedButtonUI => Material(
-    elevation: 10,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-    child: Container(
-      height: widget.height,
-      width: MediaQuery.of(context).size.width * widget.widhtMultiply,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25),
-        color: widget.color == null
-            ? Colors.blue
-            : widget.color
-      ),
-      child: Center(
-        child: widget.iconBool == true
-          ? Icon(widget.icon, color: Colors.white, size: 40,)
-          : Text(
-            widget.text,
-            style: TextStyle(
-              fontSize: 22,
-              color: Colors.white,
-            ),
+        elevation: 10,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+        child: Container(
+          height: widget.height,
+          width: MediaQuery.of(context).size.width * widget.widhtMultiply,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(25),
+              color: widget.color == null ? Colors.blue : widget.color),
+          child: Center(
+            child: widget.iconBool == true
+                ? Icon(
+                    widget.icon,
+                    color: Colors.white,
+                    size: 40,
+                  )
+                : Text(
+                    widget.text,
+                    style: TextStyle(
+                      fontSize: 22,
+                      color: Colors.white,
+                    ),
+                  ),
+          ),
         ),
-      ),
-    ),
-  );
-
+      );
 }

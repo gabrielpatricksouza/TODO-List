@@ -3,23 +3,23 @@ import 'package:mobx/mobx.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:todo_list/app/app_controller.dart';
-import 'package:todo_list/app/model/Usuario.dart';
-import 'package:todo_list/app/modules/login/repositories/db_user.dart';
+import 'package:todo_list/app/model/usuario.dart';
+import 'package:todo_list/app/modules/login/repository/login_service.dart';
 import 'package:todo_list/app/widgets/simple_alert.dart';
 part 'login_store.g.dart';
 
 class LoginStore = _LoginStore with _$LoginStore;
 
-abstract class _LoginStore with Store{
+abstract class _LoginStore with Store {
   Usuario _usuario = Usuario();
-  ConexaoBD _acessoBD = ConexaoBD();
+  LoginService _loginService = LoginService();
   AppController appController = Modular.get();
 
   final emailController = TextEditingController();
   final senhaController = TextEditingController();
 
   @observable
-  bool visualizar  = true;
+  bool visualizar = true;
 
   @action
   void boolVisualizar() => visualizar = !visualizar;
@@ -46,37 +46,30 @@ abstract class _LoginStore with Store{
   bool get finalizar => email.isNotEmpty && senha.isNotEmpty;
 
   @observable
-  bool carregando  = false;
+  bool carregando = false;
 
   @observable
   dynamic resultado = false;
 
   @action
-  Future signInWithEmailAndPassword(context) async {
-
-    if(finalizar){
+  Future<void> signInWithEmailAndPassword(context) async {
+    if (finalizar) {
       carregando = true;
 
       _usuario.email = email.trim();
       _usuario.senha = senha.trim();
 
-      resultado = await _acessoBD.logarUsuario(_usuario);
+      resultado = await _loginService.logarUsuario(_usuario);
       carregando = false;
 
-      if(resultado != true){
+      if (resultado != true) {
         simpleCustomAlert(context, AlertType.info, "ATENÇÃO", resultado);
-      }
-      else{
+      } else {
         Modular.to.navigate("/home");
         await appController.recuperarDadosUser();
       }
-    }
-    else simpleCustomAlert(
-        context,
-        AlertType.info,
-        "ATENÇÃO",
-        "Preencha todos os campos para prosseguirmos!"
-    );
+    } else
+      simpleCustomAlert(context, AlertType.info, "ATENÇÃO",
+          "Preencha todos os campos para prosseguirmos!");
   }
 }
-

@@ -4,7 +4,6 @@ import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
 
 class IntroScreen extends StatefulWidget {
-
   @override
   IntroScreenState createState() => new IntroScreenState();
 }
@@ -19,15 +18,17 @@ class IntroScreenState extends State<IntroScreen> {
     slides.add(
       new Slide(
         title: "MEU-TODO",
-        description: "É um aplicativo onde será possível inserir, editar e excluir itens, além de poder compartilhar para outras pessoas.",
+        description:
+            "É um aplicativo onde será possível inserir, editar e excluir itens, além de poder compartilhar para outras pessoas.",
         pathImage: "assets/intro/todo_list.png",
-        backgroundColor:  Color(0xff982ace),
+        backgroundColor: Color(0xff982ace),
       ),
     );
     slides.add(
       new Slide(
         title: "Adicionar lista",
-        description: "Clique no botão verde para adicionar uma nova lista de tarefa",
+        description:
+            "Clique no botão verde para adicionar uma nova lista de tarefa",
         pathImage: "assets/intro/intro1.png",
         heightImage: 350,
         widthImage: 350,
@@ -48,7 +49,8 @@ class IntroScreenState extends State<IntroScreen> {
     slides.add(
       new Slide(
         title: "Importar lista",
-        description: "Ao clicar no icone de dowloand, você pode importar outras listas",
+        description:
+            "Ao clicar no icone de dowloand, você pode importar outras listas",
         pathImage: "assets/intro/intro6.png",
         heightImage: 350,
         widthImage: 350,
@@ -103,7 +105,8 @@ class IntroScreenState extends State<IntroScreen> {
     slides.add(
       new Slide(
         title: "Deletar",
-        description: "Apague tanto lista, quanto tarefa apenas arrastando para o lado",
+        description:
+            "Apague tanto lista, quanto tarefa apenas arrastando para o lado",
         pathImage: "assets/intro/intro7.png",
         heightImage: 350,
         widthImage: 350,

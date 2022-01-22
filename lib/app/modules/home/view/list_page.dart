@@ -41,14 +41,13 @@ class _ListPageState extends ModularState<ListPage, HomeStore> {
               showDialog(
                   context: context,
                   builder: (_) => HomeTodo(
-                    action: "Importar",
-                    controller: controller,
-                    hintText: "Código",
-                    buttomText: "Utilizar",
-                  ));
+                        action: "Importar",
+                        controller: controller,
+                        hintText: "Código",
+                        buttomText: "Utilizar",
+                      ));
             },
-            icon: Icon(Icons.download_rounded)
-        ),
+            icon: Icon(Icons.download_rounded)),
         actions: [
           IconButton(
               onPressed: () {
@@ -60,7 +59,10 @@ class _ListPageState extends ModularState<ListPage, HomeStore> {
       ),
       body: Observer(
         builder: (_) => controller.carregando
-            ? Center(child: CircularProgressIndicator(color: Colors.white,))
+            ? Center(
+                child: CircularProgressIndicator(
+                color: Colors.white,
+              ))
             : controller.listaTarefasUsuario.length == 0
                 ? Center(
                     child: Text(
@@ -82,52 +84,47 @@ class _ListPageState extends ModularState<ListPage, HomeStore> {
                           child: Material(
                             elevation: 10,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)
-                            ),
+                                borderRadius: BorderRadius.circular(10)),
                             color: Color(0XFF7C83FD),
-                            
                             child: Dismissible(
                               direction: DismissDirection.startToEnd,
-                              
                               child: ListTile(
-
                                 title: Text(
                                   controller.listaTarefasUsuario[index].nome,
                                   style: TextStyle(fontSize: 22),
                                 ),
-
                                 trailing: IconButton(
-                                    onPressed: (){
-                                      Share.share('Código para importação:  ${controller.listaTarefasUsuario[index].idLista}');
+                                    onPressed: () {
+                                      Share.share(
+                                          'Código para importação:  ${controller.listaTarefasUsuario[index].idLista}');
                                     },
-                                    icon: Icon(Icons.share_rounded)
-                                ),
-
+                                    icon: Icon(Icons.share_rounded)),
                                 onTap: () {
                                   Modular.to
                                       .pushNamed("/home/listTodo", arguments: {
-                                    'nome': controller.listaTarefasUsuario[index].nome,
-                                    'idUsuario': controller.listaTarefasUsuario[index].idUsuario,
+                                    'nome': controller
+                                        .listaTarefasUsuario[index].nome,
+                                    'idUsuario': controller
+                                        .listaTarefasUsuario[index].idUsuario,
                                   });
                                 },
                               ),
                               onDismissed: (direction) {
-                                controller.deletarLista(controller
-                                    .listaTarefasUsuario[index]);
+                                controller.deletarLista(
+                                    controller.listaTarefasUsuario[index]);
                               },
                               background: Container(
-                                
                                 alignment: Alignment.centerLeft,
                                 decoration: BoxDecoration(
                                     color: Colors.red,
-                                    borderRadius: BorderRadius.circular(10)
-                                ),
+                                    borderRadius: BorderRadius.circular(10)),
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Icon(Icons.delete_forever_outlined),
                                 ),
                               ),
-                              key: ValueKey(controller.listaTarefasUsuario.length),
+                              key: ValueKey(
+                                  controller.listaTarefasUsuario.length),
                             ),
                           ),
                         );
@@ -140,8 +137,11 @@ class _ListPageState extends ModularState<ListPage, HomeStore> {
           controller.manipularTexto("");
           showDialog(
               context: context,
-              builder: (_) =>
-                  HomeTodo(action: "Lista", controller: controller, hintText: "Título da tarefa",));
+              builder: (_) => HomeTodo(
+                    action: "Lista",
+                    controller: controller,
+                    hintText: "Título da tarefa",
+                  ));
         },
         backgroundColor: Color(0XFF7DEDFF),
         child: Icon(

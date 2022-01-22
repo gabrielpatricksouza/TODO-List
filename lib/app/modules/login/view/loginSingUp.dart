@@ -58,7 +58,9 @@ class SingUp extends StatelessWidget {
                                   Text(
                                     "MEU\nCADASTRO",
                                     style: TextStyle(
-                                        fontSize: MediaQuery.of(context).size.width / 8,
+                                        fontSize:
+                                            MediaQuery.of(context).size.width /
+                                                8,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white70),
                                     textAlign: TextAlign.center,
@@ -104,13 +106,13 @@ class SingUp extends StatelessWidget {
                                           _controllerLogin.visualizar
                                               ? Icons.visibility_off
                                               : Icons.visibility,
-                                          color:  Colors.white,
+                                          color: Colors.white,
                                         ),
                                       ),
                                       controller:
                                           _controllerLogin.senhaController,
                                       obscure: _controllerLogin.visualizar,
-                                      onChanged: _controllerLogin.setsenha1,
+                                      onChanged: _controllerLogin.setSenha1,
                                       keyboardType:
                                           TextInputType.visiblePassword,
                                     ),
@@ -119,7 +121,7 @@ class SingUp extends StatelessWidget {
                                       icon: Icons.lock,
                                       hintText: "Confirmar Senha",
                                       labelStyle:
-                                      TextStyle(color: Colors.white),
+                                          TextStyle(color: Colors.white),
                                       fillColor: Colors.white.withOpacity(0.2),
                                       suffixIcon: GestureDetector(
                                         onTap: _controllerLogin.boolVisualizar2,
@@ -127,13 +129,13 @@ class SingUp extends StatelessWidget {
                                           _controllerLogin.visualizar2
                                               ? Icons.visibility_off
                                               : Icons.visibility,
-                                          color:  Colors.white,
+                                          color: Colors.white,
                                         ),
                                       ),
                                       controller:
                                           _controllerLogin.senha2Controller,
                                       obscure: _controllerLogin.visualizar2,
-                                      onChanged: _controllerLogin.setsenha2,
+                                      onChanged: _controllerLogin.setSenha2,
                                       keyboardType:
                                           TextInputType.visiblePassword,
                                     ),
@@ -148,8 +150,10 @@ class SingUp extends StatelessWidget {
                                               CustomAnimatedButton(
                                                 onTap: () {
                                                   _controllerLogin
-                                                      .validandoNomeEmail(context);
-                                                  FocusScope.of(context).unfocus();
+                                                      .validandoNomeEmail(
+                                                          context);
+                                                  FocusScope.of(context)
+                                                      .unfocus();
                                                 },
                                                 widhtMultiply: 1,
                                                 height: 60,
@@ -157,8 +161,7 @@ class SingUp extends StatelessWidget {
                                                 text: "Próximo",
                                               ),
                                             ],
-                                          )
-                                        )
+                                          ))
                                       : Padding(
                                           padding:
                                               const EdgeInsets.only(top: 10.0),
@@ -168,19 +171,22 @@ class SingUp extends StatelessWidget {
                                                 onTap: () {
                                                   _controllerLogin
                                                       .validandoSenhas(context);
-                                                  FocusScope.of(context).unfocus();
+                                                  FocusScope.of(context)
+                                                      .unfocus();
                                                 },
                                                 widhtMultiply: 1,
                                                 height: 60,
                                                 color: Color(0XFF338fa0),
                                                 text: "Cadastrar",
                                               ),
-                                              SizedBox(height: 20.0,),
-
+                                              SizedBox(
+                                                height: 20.0,
+                                              ),
                                               CustomAnimatedButton(
                                                 onTap: () {
                                                   _controllerLogin.mudarNext();
-                                                  FocusScope.of(context).unfocus();
+                                                  FocusScope.of(context)
+                                                      .unfocus();
                                                 },
                                                 widhtMultiply: 1,
                                                 height: 60,

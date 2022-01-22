@@ -21,8 +21,6 @@ class InputCustomizado extends StatelessWidget {
   final GestureDetector? suffixIcon;
   final List<TextInputFormatter>? inputFormatters;
 
-  // final Function(String) validator;
-  // final Function(String) onSaved;
   final Function(String) onChanged;
 
   InputCustomizado({
@@ -91,7 +89,6 @@ class InputCustomizado extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(25)),
           borderSide:

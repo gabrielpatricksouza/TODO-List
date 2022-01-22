@@ -1,46 +1,45 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:todo_list/app/model/Usuario.dart';
+import 'package:todo_list/app/model/usuario.dart';
 
-class ConexaoBD {
+class LoginService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore db = FirebaseFirestore.instance;
-
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future cadastrarUsuario(Usuario usuario) async {
     try {
       await _auth
           .createUserWithEmailAndPassword(
-          email: usuario.email, password: usuario.senha).then(
-              (value) {
-            db.collection("usuarios").doc(value.user!.uid).set({
-              "nome": usuario.nome,
-              "email": usuario.email,
-              "idUsuario": value.user!.uid
-            });
+              email: usuario.email, password: usuario.senha)
+          .then((value) {
+        _firestore.collection("usuarios").doc(value.user!.uid).set({
+          "nome": usuario.nome,
+          "email": usuario.email,
+          "idUsuario": value.user!.uid
+        });
       });
       return true;
-    } catch (error) {
+    }  on FirebaseException catch (error) {
       var errorMessage;
 
-      switch (error) {
+      switch (error.code) {
         case "weak-password":
           errorMessage = "Senha fraca!";
           return errorMessage;
 
         case "invalid-email":
           errorMessage =
-          "O valor fornecido para a propriedade do usuário email é inválido!";
+              "O valor fornecido para a propriedade do usuário email é inválido!";
           return errorMessage;
 
         case "email-already-exists":
           errorMessage =
-          "O e-mail fornecido já está em uso por outro usuário. ";
+              "O e-mail fornecido já está em uso por outro usuário. ";
           return errorMessage;
 
         case "email-already-in-use":
           errorMessage =
-          "O e-mail fornecido já está em uso por outro usuário. ";
+              "O e-mail fornecido já está em uso por outro usuário. ";
           return errorMessage;
 
         default:
@@ -49,21 +48,19 @@ class ConexaoBD {
       }
     }
   }
-//******************************************************************************
 
   Future logarUsuario(Usuario usuario) async {
-
     try {
       await _auth.signInWithEmailAndPassword(
           email: usuario.email, password: usuario.senha);
       return true;
-    } catch (error) {
+    } on FirebaseException catch (error) {
       var errorMessage;
 
-      switch (error) {
+      switch (error.code) {
         case "invalid-email":
           errorMessage =
-          "O valor fornecido para a propriedade do usuário email é inválido!";
+              "O valor fornecido para a propriedade do usuário email é inválido!";
           return errorMessage;
 
         case "wrong-password":
@@ -88,7 +85,7 @@ class ConexaoBD {
 
         case "email-already-in-use":
           errorMessage =
-          "O e-mail fornecido já está em uso por outro usuário. ";
+              "O e-mail fornecido já está em uso por outro usuário. ";
           return errorMessage;
 
         default:
@@ -98,12 +95,9 @@ class ConexaoBD {
     }
   }
 
-//******************************************************************************
-
 
   Future<bool> deslogarUsuario() async {
-
-    await  _auth.signOut();
+    await _auth.signOut();
 
     bool verificarUsuarioDeslogado = checkCurrentUser();
     if (verificarUsuarioDeslogado) {
@@ -114,7 +108,7 @@ class ConexaoBD {
   }
 //******************************************************************************
 
-  Future esqueciSenha(String email) async {
+  Future<void> esqueciSenha(String email) async {
     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
   }
 
