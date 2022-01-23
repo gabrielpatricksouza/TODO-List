@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -57,80 +57,83 @@ class _ListPageState extends ModularState<ListPage, HomeStore> {
               icon: Icon(Icons.exit_to_app))
         ],
       ),
-      body: Observer(
-        builder: (_) => controller.carregando
-            ? Center(
-                child: CircularProgressIndicator(
-                color: Colors.white,
-              ))
-            : controller.listaTarefasUsuario.length == 0
-                ? Center(
-                    child: Text(
-                      "Sem Lista",
-                      style: TextStyle(fontSize: 25, color: Colors.black),
-                    ),
-                  )
-                : NotificationListener<OverscrollIndicatorNotification>(
-                    onNotification:
-                        (OverscrollIndicatorNotification overscroll) {
-                      overscroll.disallowGlow();
-                      return true;
-                    },
-                    child: ListView.builder(
-                      itemCount: controller.listaTarefasUsuario.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Material(
-                            elevation: 10,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            color: Color(0XFF7C83FD),
-                            child: Dismissible(
-                              direction: DismissDirection.startToEnd,
-                              child: ListTile(
-                                title: Text(
-                                  controller.listaTarefasUsuario[index].nome,
-                                  style: TextStyle(fontSize: 22),
-                                ),
-                                trailing: IconButton(
-                                    onPressed: () {
-                                      Share.share(
-                                          'Código para importação:  ${controller.listaTarefasUsuario[index].idLista}');
-                                    },
-                                    icon: Icon(Icons.share_rounded)),
-                                onTap: () {
-                                  Modular.to
-                                      .pushNamed("/home/listTodo", arguments: {
-                                    'nome': controller
-                                        .listaTarefasUsuario[index].nome,
-                                    'idUsuario': controller
-                                        .listaTarefasUsuario[index].idUsuario,
-                                  });
-                                },
-                              ),
-                              onDismissed: (direction) {
-                                controller.deletarLista(
-                                    controller.listaTarefasUsuario[index]);
-                              },
-                              background: Container(
-                                alignment: Alignment.centerLeft,
-                                decoration: BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: Icon(Icons.delete_forever_outlined),
-                                ),
-                              ),
-                              key: ValueKey(
-                                  controller.listaTarefasUsuario.length),
-                            ),
-                          ),
-                        );
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: kIsWeb ? MediaQuery.of(context).size.width * 0.25 : 00),
+        child: Observer(
+          builder: (_) => controller.carregando
+              ? Center(
+                  child: CircularProgressIndicator(
+                  color: Colors.white,
+                ))
+              : controller.listaTarefasUsuario.length == 0
+                  ? Center(
+                      child: Text(
+                        "Sem Lista",
+                        style: TextStyle(fontSize: 25, color: Colors.black),
+                      ),
+                    )
+                  : NotificationListener<OverscrollIndicatorNotification>(
+                      onNotification:
+                          (OverscrollIndicatorNotification overscroll) {
+                        overscroll.disallowIndicator();
+                        return true;
                       },
+                      child: ListView.builder(
+                        itemCount: controller.listaTarefasUsuario.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Material(
+                              elevation: 10,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              color: Color(0XFF7C83FD),
+                              child: Dismissible(
+                                direction: DismissDirection.startToEnd,
+                                child: ListTile(
+                                  title: Text(
+                                    controller.listaTarefasUsuario[index].nome,
+                                    style: TextStyle(fontSize: 22),
+                                  ),
+                                  trailing: IconButton(
+                                      onPressed: () {
+                                        Share.share(
+                                            'Código para importação:  ${controller.listaTarefasUsuario[index].idLista}');
+                                      },
+                                      icon: Icon(Icons.share_rounded)),
+                                  onTap: () {
+                                    Modular.to
+                                        .pushNamed("/home/listTodo", arguments: {
+                                      'nome': controller
+                                          .listaTarefasUsuario[index].nome,
+                                      'idUsuario': controller
+                                          .listaTarefasUsuario[index].idUsuario,
+                                    });
+                                  },
+                                ),
+                                onDismissed: (direction) {
+                                  controller.deletarLista(
+                                      controller.listaTarefasUsuario[index]);
+                                },
+                                background: Container(
+                                  alignment: Alignment.centerLeft,
+                                  decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: Icon(Icons.delete_forever_outlined),
+                                  ),
+                                ),
+                                key: ValueKey(
+                                    controller.listaTarefasUsuario.length),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
                     ),
-                  ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

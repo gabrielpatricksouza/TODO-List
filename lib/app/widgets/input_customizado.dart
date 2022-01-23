@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -68,8 +68,8 @@ class InputCustomizado extends StatelessWidget {
             )),
         suffixIcon: suffixIcon,
         contentPadding: suffixIcon == null
-            ? EdgeInsets.fromLTRB(18, 18, 12, 18)
-            : EdgeInsets.fromLTRB(0, 18, 0, 18),
+            ? kIsWeb ? EdgeInsets.fromLTRB(0, 25, 0, 25) : EdgeInsets.fromLTRB(18, 18, 12, 18)
+            : kIsWeb ? EdgeInsets.fromLTRB(0, 25, 0, 25) : EdgeInsets.fromLTRB(0, 18, 0, 18),
         labelStyle: this.labelStyle,
         labelText: this.labelText,
         hintStyle: this.hintStyle,

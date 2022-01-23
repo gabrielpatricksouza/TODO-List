@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:todo_list/app/modules/login/store/login_store.dart';
 import 'package:todo_list/app/widgets/custom_animated_button.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class LoginPage extends StatefulWidget {
   @override
@@ -14,7 +15,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginStore> {
     return Scaffold(
       backgroundColor: Colors.deepPurpleAccent,
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25.0),
+        padding: EdgeInsets.symmetric(horizontal: kIsWeb ? MediaQuery.of(context).size.width * 0.25 : 25.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

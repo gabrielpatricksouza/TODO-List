@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -39,12 +40,12 @@ class SingUp extends StatelessWidget {
                         ),
                       )
                     : Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 38.0),
+                        padding: EdgeInsets.symmetric(horizontal: kIsWeb ? MediaQuery.of(context).size.width * 0.25 : 38.0),
                         child: NotificationListener<
                             OverscrollIndicatorNotification>(
                           onNotification:
                               (OverscrollIndicatorNotification overscroll) {
-                            overscroll.disallowGlow();
+                            overscroll.disallowIndicator();
                             return true;
                           },
                           child: SingleChildScrollView(
@@ -58,9 +59,7 @@ class SingUp extends StatelessWidget {
                                   Text(
                                     "MEU\nCADASTRO",
                                     style: TextStyle(
-                                        fontSize:
-                                            MediaQuery.of(context).size.width /
-                                                8,
+                                        fontSize: kIsWeb ? MediaQuery.of(context).size.width * 0.05 : MediaQuery.of(context).size.width / 8,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white70),
                                     textAlign: TextAlign.center,

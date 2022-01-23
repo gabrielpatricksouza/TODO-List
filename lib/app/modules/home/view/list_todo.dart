@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -53,83 +52,86 @@ class _ListTodoState extends ModularState<ListTodo, HomeStore> {
           ),
         ],
       ),
-      body: StreamBuilder<QuerySnapshot>(
-          stream: controller.buscarTarefas(widget.dadosTarefa),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Container(
-                color: Color(0XFFFF4C29),
-                child: Center(
-                  child: Text("Ocorreu um erro ao carregar lista!"),
-                ),
-              );
-            } else if (!snapshot.hasData) {
-              return Center(child: CircularProgressIndicator());
-            } else {
-              return NotificationListener<OverscrollIndicatorNotification>(
-                onNotification: (OverscrollIndicatorNotification overscroll) {
-                  overscroll.disallowGlow();
-                  return true;
-                },
-                child: ListView.separated(
-                  separatorBuilder: (context, index) => Divider(
-                    height: 10,
-                    color: Colors.grey[700],
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: kIsWeb ? MediaQuery.of(context).size.width * 0.25 : 00),
+        child: StreamBuilder<QuerySnapshot>(
+            stream: controller.buscarTarefas(widget.dadosTarefa),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Container(
+                  color: Color(0XFFFF4C29),
+                  child: Center(
+                    child: Text("Ocorreu um erro ao carregar lista!"),
                   ),
-                  itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (context, index) {
-                    TodoModel todo = controller
-                        .converterParaTodo(snapshot.data!.docs[index]);
+                );
+              } else if (!snapshot.hasData) {
+                return Center(child: CircularProgressIndicator());
+              } else {
+                return NotificationListener<OverscrollIndicatorNotification>(
+                  onNotification: (OverscrollIndicatorNotification overscroll) {
+                    overscroll.disallowIndicator();
+                    return true;
+                  },
+                  child: ListView.separated(
+                    separatorBuilder: (context, index) => Divider(
+                      height: 10,
+                      color: Colors.grey[700],
+                    ),
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      TodoModel todo = controller
+                          .converterParaTodo(snapshot.data!.docs[index]);
 
-                    return Dismissible(
-                      direction: DismissDirection.startToEnd,
-                      child: ListTile(
-                        title: Text(
-                          todo.tarefa,
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        trailing: Checkbox(
-                          value: todo.check,
-                          checkColor: Color(0XFF0A1931),
-                          onChanged: (bool? value) {
-                            todo.check = value!;
+                      return Dismissible(
+                        direction: DismissDirection.startToEnd,
+                        child: ListTile(
+                          title: Text(
+                            todo.tarefa,
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          trailing: Checkbox(
+                            value: todo.check,
+                            checkColor: Color(0XFF0A1931),
+                            onChanged: (bool? value) {
+                              todo.check = value!;
+                              todo.idUsuario = widget.dadosTarefa["idUsuario"];
+                              todo.nomeTarefa = widget.dadosTarefa["nome"];
+                              controller.atualizarCheck(todo);
+                            },
+                          ),
+                          onTap: () {
                             todo.idUsuario = widget.dadosTarefa["idUsuario"];
                             todo.nomeTarefa = widget.dadosTarefa["nome"];
-                            controller.atualizarCheck(todo);
+                            controller.manipularTexto(todo.tarefa);
+                            showDialog(
+                                context: context,
+                                builder: (_) => HomeTodo(
+                                    todoModel: todo,
+                                    action: "Editar",
+                                    controller: controller));
                           },
                         ),
-                        onTap: () {
+                        onDismissed: (direction) {
                           todo.idUsuario = widget.dadosTarefa["idUsuario"];
                           todo.nomeTarefa = widget.dadosTarefa["nome"];
-                          controller.manipularTexto(todo.tarefa);
-                          showDialog(
-                              context: context,
-                              builder: (_) => HomeTodo(
-                                  todoModel: todo,
-                                  action: "Editar",
-                                  controller: controller));
+                          controller.deletarTarefa(todo);
                         },
-                      ),
-                      onDismissed: (direction) {
-                        todo.idUsuario = widget.dadosTarefa["idUsuario"];
-                        todo.nomeTarefa = widget.dadosTarefa["nome"];
-                        controller.deletarTarefa(todo);
-                      },
-                      background: Container(
-                        color: Colors.red,
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10.0),
-                          child: Icon(Icons.delete_forever_outlined),
+                        background: Container(
+                          color: Colors.red,
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Icon(Icons.delete_forever_outlined),
+                          ),
                         ),
-                      ),
-                      key: ValueKey(snapshot.data!.docs.length),
-                    );
-                  },
-                ),
-              );
-            }
-          }),
+                        key: ValueKey(snapshot.data!.docs.length),
+                      );
+                    },
+                  ),
+                );
+              }
+            }),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           controller.manipularTexto("");
